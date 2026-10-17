@@ -81,3 +81,11 @@ button:disabled { background: #475569; cursor: not-allowed; }
 .wallet-label { color: #64748b; }
 .wallet-val { color: #e2e8f0; font-weight: 500; }
 .mono { font-family: monospace; font-size: 0.88rem; }
+.cancel-btn {
+  background: #1e293b;
+  color: #f87171;
+  border: 1px solid #dc2626;
+  margin-top: 8px;
+}
+.cancel-btn:hover { background: #7f1d1d; color: #fca5a5; border-color: #ef4444; }
+.cancel-btn:disabled { background: #1e293b; color: #475569; border-color: #334155; cursor: not-allowed; }

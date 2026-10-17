@@ -1,4 +1,5 @@
 const sendBtn = document.getElementById("send-btn");
+const cancelBtn = document.getElementById("cancel-btn");
 const statusEl = document.getElementById("status");
 const walletStatusEl = document.getElementById("wallet-status");
 
@@ -38,6 +39,39 @@ async function loadWalletStatus(auth) {
 // Load wallet status when user finishes typing the token (on blur)
 document.getElementById("auth").addEventListener("blur", (e) => {
   loadWalletStatus(e.target.value.trim());
+});
+
+cancelBtn.addEventListener("click", async () => {
+  const auth = document.getElementById("auth").value.trim();
+  if (!auth) return showStatus("Enter the access token first.", "error");
+
+  cancelBtn.disabled = true;
+  showStatus("Cancelling pending transactions...", "info");
+
+  try {
+    const res = await fetch("/.netlify/functions/cancel", {
+      method: "POST",
+      headers: { "x-auth-token": auth },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      showStatus("Cancel failed: " + (data.error || "unknown error"), "error");
+    } else if (data.cancelled && data.cancelled.length === 0) {
+      showStatus("ℹ️ No pending transactions found.", "info");
+    } else {
+      const links = data.cancelled
+        .map((c) => `Nonce ${c.nonce}: ${c.etherscanUrl}`)
+        .join("\n");
+      showStatus(`🔄 ${data.message}\n${links}`, "success");
+      loadWalletStatus(auth);
+    }
+  } catch (err) {
+    showStatus("Request failed: " + err.message, "error");
+  } finally {
+    cancelBtn.disabled = false;
+  }
 });
 
 sendBtn.addEventListener("click", async () => {
