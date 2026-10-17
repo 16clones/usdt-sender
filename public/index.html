@@ -14,6 +14,21 @@
     <label for="auth">Access token</label>
     <input type="password" id="auth" placeholder="APP_AUTH_TOKEN" />
 
+    <div id="wallet-status" class="wallet-status hidden">
+      <div class="wallet-row">
+        <span class="wallet-label">Wallet</span>
+        <span id="wallet-addr" class="wallet-val mono"></span>
+      </div>
+      <div class="wallet-row">
+        <span class="wallet-label">ETH Balance</span>
+        <span id="wallet-eth" class="wallet-val"></span>
+      </div>
+      <div class="wallet-row" id="price-row" style="display:none">
+        <span class="wallet-label">ETH Price</span>
+        <span id="wallet-price" class="wallet-val"></span>
+      </div>
+    </div>
+
     <label for="recipient">Recipient address</label>
     <input type="text" id="recipient" placeholder="0x..." />
 

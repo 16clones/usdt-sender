@@ -77,17 +77,6 @@ exports.handler = async (event) => {
     const usdt = new ethers.Contract(USDT_ADDRESS, USDT_ABI, wallet);
     const value = ethers.parseUnits(amt.toString(), USDT_DECIMALS);
 
-    // Pre-flight: USDT balance
-    const bal = await usdt.balanceOf(wallet.address);
-    if (bal < value) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({
-          error: `Insufficient USDT. Have ${ethers.formatUnits(bal, USDT_DECIMALS)}, need ${amt}`,
-        }),
-      };
-    }
-
     // Pre-flight: ETH for gas
     const ethBal = await provider.getBalance(wallet.address);
     if (ethBal === 0n) {
