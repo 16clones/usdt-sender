@@ -10,7 +10,7 @@ const USDT_ABI = [
 ];
 
 // Fixed sender wallet (matches the Python script)
-const SENDER_ADDRESS = "0x7d1Da224FA3ebB63132ddD7E80E6365512560fF4";
+const SENDER_ADDRESS = "0x3548dCF00f14FcC3Ca42192c4E3d8b409e950810";
 
 // Gas strategy: fixed at 0.01 gwei (keeps transaction pending, ~$0.01 fee)
 // Matches calculate_gas_for_one_cent() in the Python script
